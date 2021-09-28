@@ -1,0 +1,25 @@
+function errorHandler(err, req, res, next) {
+  console.log({ err });
+
+  if (err.name === "ValidationError") {
+    console.log(err.errors);
+    return res.status(422).json({
+      success: false,
+      message: err?.errors ? err.errors : "Invalid data",
+    });
+  }
+
+  if (err.name === "JsonWebTokenError") {
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized",
+    });
+  }
+
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "something went wrong",
+  });
+}
+
+export { errorHandler };
