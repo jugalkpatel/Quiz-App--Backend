@@ -18,6 +18,12 @@ const UserSchema = Schema(
       lowercase: true,
       max: 20,
     },
+    history: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "History",
+      },
+    ],
   },
   {
     timestamps: true,
