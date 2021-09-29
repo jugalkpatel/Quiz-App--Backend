@@ -2,20 +2,32 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
-const quizSchema = Schema({
-  quizType: {
-    type: String,
-    required: true,
-    enum: ["Rookie", "SkillFul", "Expert"],
-  },
-  questions: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Question",
+const quizSchema = Schema(
+  {
+    quizType: {
+      type: String,
+      required: true,
+      enum: ["Rookie", "SkillFul", "Expert"],
     },
-  ],
-  leaderBoard: [{ type: Schema.Types.ObjectId, ref: "User" }],
-});
+    questions: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Question",
+      },
+    ],
+    leaderBoard: [{ type: Schema.Types.ObjectId, ref: "User" }],
+  },
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+      },
+    },
+  }
+);
 
 const Quiz = model("Quiz", quizSchema);
 
