@@ -6,7 +6,7 @@ import { config } from "dotenv";
 import asyncHandler from "express-async-handler";
 
 import connect from "./db/connect.js";
-import { authRoutes, quizRoutes } from "./routes/index.js";
+import { authRoutes, quizRoutes, questionRoutes } from "./routes/index.js";
 import { errorHandler } from "./middlewares/error-handler.js";
 import { tokenValidator } from "./middlewares/token-validator.js";
 
@@ -25,6 +25,7 @@ app.get("/", asyncHandler(tokenValidator), (req, res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/questions", questionRoutes);
 app.use("/quiz", quizRoutes);
 
 app.use((req, res, next) => {
