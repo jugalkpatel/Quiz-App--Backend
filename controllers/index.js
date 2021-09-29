@@ -4,7 +4,7 @@ export {
   logoutHandler,
 } from "./auth.controllers.js";
 
-export { createQuizHandler } from "./quiz.controllers.js";
+export { createQuizHandler, getQuizHandler } from "./quiz.controllers.js";
 export {
   createQuestionHandler,
   getAllQuestionsHanlder,

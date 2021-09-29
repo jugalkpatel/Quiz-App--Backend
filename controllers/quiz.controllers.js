@@ -1,11 +1,9 @@
-import { createQuiz } from "../services/quiz.services.js";
+import { createQuiz, getQuiz } from "../services/quiz.services.js";
 
 async function createQuizHandler(req, res) {
   const { quizType } = req.body;
 
-  console.log(req.body);
-
-  const quiz = await createQuiz({ quizType });
+  const quiz = await createQuiz(quizType);
 
   res.status(201).json({
     success: true,
@@ -14,4 +12,17 @@ async function createQuizHandler(req, res) {
   });
 }
 
-export { createQuizHandler };
+async function getQuizHandler(req, res) {
+  const { quizType } = req.body;
+
+  const quiz = await getQuiz(quizType);
+
+  console.log(quiz.questions.length);
+
+  res.status(200).json({
+    success: true,
+    quiz,
+  });
+}
+
+export { createQuizHandler, getQuizHandler };
