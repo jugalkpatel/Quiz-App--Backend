@@ -18,6 +18,12 @@ const UserSchema = Schema(
       lowercase: true,
       max: 20,
     },
+    level: {
+      type: String,
+      required: true,
+      enum: ["Rookie", "Skillful", "Expert"],
+      default: "Rookie",
+    },
     history: [
       {
         type: Schema.Types.ObjectId,
