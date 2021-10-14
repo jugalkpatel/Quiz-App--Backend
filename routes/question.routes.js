@@ -6,7 +6,7 @@ import {
   getAllQuestionsHanlder,
 } from "../controllers/index.js";
 
-import { validateRequest } from "../middlewares/validate-request.js";
+import { validateRequest } from "../middlewares/index.js";
 import { CreateQuestion } from "../validation/index.js";
 
 const questionRoutes = Router();

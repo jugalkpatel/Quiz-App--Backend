@@ -1,7 +1,5 @@
 import { Router } from "express";
 import asyncHandler from "express-async-handler";
-import { tokenValidator } from "../middlewares/token-validator.js";
-
 const authRoutes = Router();
 import {
   registerHandler,
@@ -10,7 +8,7 @@ import {
 } from "../controllers/index.js";
 
 import { Register, Login } from "../validation/index.js";
-import { validateRequest } from "../middlewares/validate-request.js";
+import { validateRequest, tokenValidator } from "../middlewares/index.js";
 
 authRoutes
   .post("/register", validateRequest(Register), asyncHandler(registerHandler))

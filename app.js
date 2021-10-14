@@ -8,8 +8,11 @@ import cors from "cors";
 
 import connect from "./db/connect.js";
 import { authRoutes, quizRoutes, questionRoutes } from "./routes/index.js";
-import { errorHandler } from "./middlewares/error-handler.js";
-import { tokenValidator } from "./middlewares/token-validator.js";
+import {
+  errorHandler,
+  tokenValidator,
+  userValidator,
+} from "./middlewares/index.js";
 
 config();
 
@@ -22,9 +25,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(cookieParser());
 
-app.get("/", asyncHandler(tokenValidator), (req, res) => {
-  res.send("hello, world");
-});
+app.get(
+  "/",
+  asyncHandler(tokenValidator),
+  asyncHandler(userValidator),
+  (req, res) => {
+    res.send("hello, world");
+  }
+);
 
 app.use("/auth", authRoutes);
 app.use("/questions", questionRoutes);
