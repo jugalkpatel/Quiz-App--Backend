@@ -1,14 +1,8 @@
 import createError from "http-errors";
 import { User } from "../models/index.js";
-import { getAccessToken, getRefreshToken } from "../helpers/jwt.helpers.js";
+import { getAccessToken } from "../helpers/jwt.helpers.js";
 import { createPassword, validatePassword } from "./index.js";
 
-/**
- *
- * @param {{ email: string, name: string, password: string}} registerPayload
- * @returns {Promise<{ userId: string, userName: string, accessToken: string, refreshToken: string}>}
- *
- */
 async function registerService({ email, name, password }) {
   const isUserAlreadyExists = await User.findOne({ email });
 
@@ -22,15 +16,20 @@ async function registerService({ email, name, password }) {
 
   const accessToken = await getAccessToken(user._id);
 
-  const refreshToken = await getRefreshToken(user._id);
+  // const refreshToken = await getRefreshToken(user._id);
 
-  return { userId: user._id, userName: user.name, accessToken, refreshToken };
+  return {
+    userId: user._id,
+    userName: user.name,
+    accessToken,
+    level: user.level,
+  };
 }
 
 /**
  *
  * @param {{ email: string, password: string}} loginPayload
- * @returns {Promise<{ userId: string, userName: string, accessToken: string, refreshToken: string}>}
+ * @returns {Promise<{ userId: string, userName: string, accessToken: string}>}
  *
  */
 async function loginService({ email, password }) {
@@ -44,9 +43,14 @@ async function loginService({ email, password }) {
 
   const accessToken = await getAccessToken(user._id);
 
-  const refreshToken = await getRefreshToken(user._id);
+  // const refreshToken = await getRefreshToken(user._id);
 
-  return { userId: user._id, userName: user.name, accessToken, refreshToken };
+  return {
+    userId: user._id,
+    userName: user.name,
+    accessToken,
+    level: user.level,
+  };
 }
 
 export { registerService, loginService };

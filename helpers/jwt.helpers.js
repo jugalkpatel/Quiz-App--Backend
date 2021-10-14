@@ -6,7 +6,7 @@ function getAccessToken(userId) {
     jwt.sign(
       { user: userId },
       process.env.ACC_KEY,
-      { expiresIn: "10s" },
+      { expiresIn: "1w" },
       function (err, token) {
         if (err) return reject(createError.InternalServerError());
         resolve(token);
@@ -34,45 +34,40 @@ function verifyAccessToken(token) {
   return tokenData;
 }
 
-function getRefreshToken(userId) {
-  return new Promise((resolve, reject) => {
-    jwt.sign(
-      { user: userId },
-      process.env.REF_KEY,
-      { expiresIn: "1hr" },
-      function (err, token) {
-        if (err) return reject(createError.InternalServerError());
-        resolve(token);
-      }
-    );
-  });
-}
+// function getRefreshToken(userId) {
+//   return new Promise((resolve, reject) => {
+//     jwt.sign(
+//       { user: userId },
+//       process.env.REF_KEY,
+//       { expiresIn: "1hr" },
+//       function (err, token) {
+//         if (err) return reject(createError.InternalServerError());
+//         resolve(token);
+//       }
+//     );
+//   });
+// }
 
-function verifyRefreshToken(token) {
-  const tokenData = jwt.verify(
-    token,
-    process.env.REF_KEY,
-    function (err, decoded) {
-      if (err) {
-        console.log({ err });
-        return {
-          payload: null,
-          isExpired: err.message.includes("jwt expired"),
-        };
-      }
+// function verifyRefreshToken(token) {
+//   const tokenData = jwt.verify(
+//     token,
+//     process.env.REF_KEY,
+//     function (err, decoded) {
+//       if (err) {
+//         console.log({ err });
+//         return {
+//           payload: null,
+//           isExpired: err.message.includes("jwt expired"),
+//         };
+//       }
 
-      console.log({ decoded });
+//       console.log({ decoded });
 
-      return { payload: decoded.user, isExpired: false };
-    }
-  );
+//       return { payload: decoded.user, isExpired: false };
+//     }
+//   );
 
-  return tokenData;
-}
+//   return tokenData;
+// }
 
-export {
-  getAccessToken,
-  verifyAccessToken,
-  getRefreshToken,
-  verifyRefreshToken,
-};
+export { getAccessToken, verifyAccessToken };

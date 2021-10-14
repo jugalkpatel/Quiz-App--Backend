@@ -3,46 +3,44 @@ import { registerService, loginService } from "../services/index.js";
 import { deleteCookies } from "../utils/deleteCookies.js";
 
 const registerHandler = async (req, res) => {
-  const { userId, userName, accessToken, refreshToken } = await registerService(
+  const { userId, userName, accessToken, level } = await registerService(
     req.body
   );
 
-  res.cookie("accessToken", accessToken, {
-    maxAge: 300000,
-    httpOnly: true,
-  });
+  // res.cookie("accessToken", accessToken, {
+  //   maxAge: 300000,
+  //   httpOnly: true,
+  // });
 
-  res.cookie("refreshToken", refreshToken, {
-    maxAge: new Date(Date.now() + 365 * 86400000),
-    httpOnly: true,
-  });
+  // res.cookie("refreshToken", refreshToken, {
+  //   maxAge: new Date(Date.now() + 365 * 86400000),
+  //   httpOnly: true,
+  // });
 
   res.status(201).json({
     success: true,
     message: "Registered Successfully",
-    user: { id: userId, name: userName },
+    user: { id: userId, name: userName, token: accessToken, level },
   });
 };
 
 const loginHandler = async (req, res) => {
-  const { userId, userName, accessToken, refreshToken } = await loginService(
-    req.body
-  );
+  const { userId, userName, accessToken, level } = await loginService(req.body);
 
-  res.cookie("accessToken", accessToken, {
-    maxAge: new Date(Date.now() + 15 * 60 * 1000),
-    httpOnly: true,
-  });
+  // res.cookie("accessToken", accessToken, {
+  //   maxAge: new Date(Date.now() + 15 * 60 * 1000),
+  //   httpOnly: true,
+  // });
 
-  res.cookie("refreshToken", refreshToken, {
-    maxAge: new Date(Date.now() + 365 * 86400000),
-    httpOnly: true,
-  });
+  // res.cookie("refreshToken", refreshToken, {
+  //   maxAge: new Date(Date.now() + 365 * 86400000),
+  //   httpOnly: true,
+  // });
 
   res.status(201).json({
     success: true,
     message: "Authenticated Successfully",
-    user: { id: userId, name: userName },
+    user: { id: userId, name: userName, token: accessToken, level },
   });
 };
 
