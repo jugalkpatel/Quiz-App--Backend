@@ -7,7 +7,7 @@ const quizSchema = Schema(
     quizType: {
       type: String,
       required: true,
-      enum: ["Rookie", "SkillFul", "Expert"],
+      enum: ["Rookie", "Skillful", "Expert"],
     },
     questions: [
       {
