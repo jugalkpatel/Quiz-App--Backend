@@ -1,4 +1,5 @@
 import { createQuiz, getQuiz } from "../services/quiz.services.js";
+import { capitalize } from "../utils/capitalize.js";
 
 async function createQuizHandler(req, res) {
   const { quizType } = req.body;
@@ -13,9 +14,9 @@ async function createQuizHandler(req, res) {
 }
 
 async function getQuizHandler(req, res) {
-  const { quizType } = req.body;
+  const { quizType } = req.query;
 
-  const quiz = await getQuiz(quizType);
+  const quiz = await getQuiz(capitalize(quizType));
 
   console.log(quiz.questions.length);
 

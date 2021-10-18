@@ -8,7 +8,7 @@ import { validateRequest } from "../middlewares/index.js";
 const quizRoutes = Router();
 
 quizRoutes
-  .get("/", validateRequest(Quiz), asyncHandler(getQuizHandler))
+  .get("/", asyncHandler(getQuizHandler))
   .post("/add", validateRequest(Quiz), asyncHandler(createQuizHandler));
 
 export { quizRoutes };
