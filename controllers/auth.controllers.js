@@ -37,11 +37,19 @@ const loginHandler = async (req, res) => {
   //   httpOnly: true,
   // });
 
-  res.status(201).json({
-    success: true,
-    message: "Authenticated Successfully",
-    user: { id: userId, name: userName, token: accessToken, level },
-  });
+  setTimeout(() => {
+    res.status(201).json({
+      success: true,
+      message: "Registered Successfully",
+      user: { id: userId, name: userName, token: accessToken, level },
+    });
+  }, 5000);
+
+  // res.status(201).json({
+  //   success: true,
+  //   message: "Authenticated Successfully",
+  //   user: { id: userId, name: userName, token: accessToken, level },
+  // });
 };
 
 const logoutHandler = async (req, res) => {

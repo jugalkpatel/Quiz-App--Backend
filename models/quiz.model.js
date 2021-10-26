@@ -15,7 +15,7 @@ const quizSchema = Schema(
         ref: "Question",
       },
     ],
-    leaderBoard: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    leaderBoard: [{ type: Schema.Types.ObjectId, ref: "Sprint" }],
   },
   {
     toJSON: {

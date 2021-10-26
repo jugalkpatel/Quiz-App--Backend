@@ -26,8 +26,10 @@ const QuestionSchema = Schema(
   {
     toJSON: {
       transform(doc, ret) {
+        ret.statement = ret.question;
         ret.id = ret._id;
         delete ret._id;
+        delete ret.question;
         delete ret.__v;
         return ret;
       },

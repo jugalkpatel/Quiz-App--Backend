@@ -5,6 +5,7 @@ export {
 } from "./auth.controllers.js";
 
 export { createQuizHandler, getQuizHandler } from "./quiz.controllers.js";
+
 export {
   createQuestionHandler,
   getAllQuestionsHanlder,

@@ -18,8 +18,6 @@ async function getQuizHandler(req, res) {
 
   const quiz = await getQuiz(capitalize(quizType));
 
-  console.log(quiz.questions.length);
-
   res.status(200).json({
     success: true,
     quiz,
