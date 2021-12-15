@@ -21,6 +21,8 @@ const quizSchema = Schema(
     toJSON: {
       transform(doc, ret) {
         ret.id = ret._id;
+        ret.level = ret.quizType;
+        delete ret.quizType;
         delete ret._id;
         delete ret.__v;
         return ret;
