@@ -40,7 +40,7 @@ const loginHandler = async (req, res) => {
   setTimeout(() => {
     res.status(201).json({
       success: true,
-      message: "Registered Successfully",
+      message: "Authenticated Successfully",
       user: { id: userId, name: userName, token: accessToken, level },
     });
   }, 5000);
