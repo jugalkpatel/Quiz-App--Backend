@@ -1,4 +1,9 @@
-import { createQuiz, getQuiz } from "../services/quiz.services.js";
+import {
+  createQuiz,
+  getQuiz,
+  getQuizLeaderBoard,
+} from "../services/quiz.services.js";
+
 import { capitalize } from "../utils/capitalize.js";
 
 async function createQuizHandler(req, res) {
@@ -14,9 +19,8 @@ async function createQuizHandler(req, res) {
 }
 
 async function getQuizHandler(req, res) {
-  const { quizType } = req.query;
-
-  const quiz = await getQuiz(capitalize(quizType));
+  const { level } = req.query;
+  const quiz = await getQuiz(capitalize(level));
 
   res.status(200).json({
     success: true,
@@ -24,4 +28,30 @@ async function getQuizHandler(req, res) {
   });
 }
 
-export { createQuizHandler, getQuizHandler };
+async function getQuizLeaderBoardHandler(req, res) {
+  const { level } = req.body;
+  let leaderBoard = await getQuizLeaderBoard(level);
+
+  if (!leaderBoard) {
+    res.status(200).json({
+      success: true,
+      leaderBoard: [],
+    });
+  }
+
+  leaderBoard = leaderBoard.map((record) => {
+    return {
+      user: record.user.name,
+      score: record.score,
+      time: record.totalTime,
+    };
+  });
+
+  res.status(200).json({
+    success: true,
+    level,
+    leaderBoard,
+  });
+}
+
+export { createQuizHandler, getQuizHandler, getQuizLeaderBoardHandler };
