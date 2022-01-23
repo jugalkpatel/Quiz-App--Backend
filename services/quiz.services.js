@@ -1,5 +1,6 @@
 import { Quiz } from "../models/quiz.model.js";
 import createError from "http-errors";
+import { findMinimumRecord } from "../utils/findMinimumRecord.js";
 
 async function createQuiz(quizType) {
   const quiz = await Quiz.create({ quizType });
@@ -11,8 +12,8 @@ async function createQuiz(quizType) {
   return quiz;
 }
 
-async function getQuiz(quizType) {
-  const quiz = await Quiz.findOne({ quizType });
+async function getQuiz(level) {
+  const quiz = await Quiz.findOne({ quizType: level });
 
   if (!quiz) {
     throw createError.NotFound("Error occurred while finding quiz");
@@ -26,4 +27,71 @@ async function getQuiz(quizType) {
   return quiz;
 }
 
-export { createQuiz, getQuiz };
+async function addHistoryRecordInQuiz({ level, currentRecord }) {
+  const quiz = await Quiz.findOne({ quizType: level }).select(
+    "-_id -questions"
+  );
+
+  if (quiz.leaderBoard.length < 10) {
+    await Quiz.findOneAndUpdate(
+      { quizType: level },
+      { $push: { leaderBoard: currentRecord._id } },
+      { new: true }
+    );
+
+    return true;
+  }
+
+  await Quiz.populate(quiz, {
+    path: "leaderBoard",
+    select: "-user -quiz -__v",
+  });
+
+  const minimumRecord = findMinimumRecord(quiz.leaderBoard, {
+    id: currentRecord._id,
+    lowestPoints: currentRecord.score,
+    highestTime: currentRecord.totalTime,
+  });
+
+  if (currentRecord._id !== minimumRecord.id) {
+    await Quiz.findOneAndUpdate(
+      { quizType: level },
+      {
+        $pull: { leaderBoard: minimumRecord.id },
+      },
+      { new: true }
+    );
+
+    await Quiz.findOneAndUpdate(
+      {
+        quizType: level,
+      },
+      {
+        $push: { leaderBoard: currentRecord._id },
+      },
+      { new: true }
+    );
+
+    return true;
+  }
+
+  return false;
+}
+
+async function getQuizLeaderBoard(level) {
+  const quiz = await Quiz.findOne({ quizType: level });
+
+  if (!quiz.leaderBoard.length) {
+    return [];
+  }
+
+  await Quiz.populate(quiz, {
+    path: "leaderBoard",
+    select: "-quiz -__v -_id",
+    populate: { path: "user", select: "name -_id" },
+  });
+
+  return quiz.leaderBoard;
+}
+
+export { createQuiz, getQuiz, addHistoryRecordInQuiz, getQuizLeaderBoard };
