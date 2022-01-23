@@ -1,7 +1,8 @@
 import createError from "http-errors";
+
 import { User } from "../models/index.js";
+import { createPassword, validatePassword } from "../services/index.js";
 import { getAccessToken } from "../helpers/jwt.helpers.js";
-import { createPassword, validatePassword } from "./index.js";
 
 async function registerService({ email, name, password }) {
   const isUserAlreadyExists = await User.findOne({ email });
@@ -16,8 +17,6 @@ async function registerService({ email, name, password }) {
 
   const accessToken = await getAccessToken(user._id);
 
-  // const refreshToken = await getRefreshToken(user._id);
-
   return {
     userId: user._id,
     userName: user.name,
@@ -26,12 +25,6 @@ async function registerService({ email, name, password }) {
   };
 }
 
-/**
- *
- * @param {{ email: string, password: string}} loginPayload
- * @returns {Promise<{ userId: string, userName: string, accessToken: string}>}
- *
- */
 async function loginService({ email, password }) {
   const user = await User.findOne({ email });
 
@@ -42,8 +35,6 @@ async function loginService({ email, password }) {
   await validatePassword({ user: user._id, password });
 
   const accessToken = await getAccessToken(user._id);
-
-  // const refreshToken = await getRefreshToken(user._id);
 
   return {
     userId: user._id,

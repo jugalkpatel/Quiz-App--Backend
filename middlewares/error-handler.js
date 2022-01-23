@@ -16,17 +16,17 @@ function errorHandler(err, req, res, next) {
     });
   }
 
-  setTimeout(() => {
-    res.status(err.status || 500).json({
-      success: false,
-      message: err.message || "something went wrong",
-    });
-  }, 5000);
+  // setTimeout(() => {
+  //   res.status(err.status || 500).json({
+  //     success: false,
+  //     message: err.message || "something went wrong",
+  //   });
+  // }, 5000);
 
-  // res.status(err.status || 500).json({
-  //   success: false,
-  //   message: err.message || "something went wrong",
-  // });
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || "something went wrong",
+  });
 }
 
 export { errorHandler };

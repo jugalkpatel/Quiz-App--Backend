@@ -9,5 +9,3 @@ export default async function () {
     process.exit(1);
   }
 }
-
-const isMatch = (value, aboveValue) => value === aboveValue;
