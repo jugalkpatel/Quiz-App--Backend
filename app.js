@@ -1,13 +1,17 @@
 import express from "express";
 import morgan from "morgan";
 import createError from "http-errors";
-// import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 import asyncHandler from "express-async-handler";
 import cors from "cors";
 
 import connect from "./db/connect.js";
-import { authRoutes, quizRoutes, questionRoutes } from "./routes/index.js";
+import {
+  authRoutes,
+  quizRoutes,
+  questionRoutes,
+  historyRoutes,
+} from "./routes/index.js";
 import {
   errorHandler,
   tokenValidator,
@@ -23,7 +27,6 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-// app.use(cookieParser());
 
 app.get(
   "/",
@@ -37,6 +40,7 @@ app.get(
 app.use("/auth", authRoutes);
 app.use("/questions", questionRoutes);
 app.use("/quiz", quizRoutes);
+app.use("/history", historyRoutes);
 
 app.use((req, res, next) => {
   return next(createError.NotFound(`${req.url} route does not exist`));
