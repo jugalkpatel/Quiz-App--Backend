@@ -15,6 +15,10 @@ const historySchema = Schema({
     type: Number,
     required: true,
   },
+  totalTime: {
+    type: Number,
+    required: true,
+  },
 });
 
 const History = model("History", historySchema);
