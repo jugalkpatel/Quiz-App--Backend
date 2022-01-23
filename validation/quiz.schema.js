@@ -1,6 +1,7 @@
 import { string, object } from "yup";
-const Quiz = object({
-  quizType: string().oneOf(["Rookie", "SkillFul", "Expert"]).required(),
+
+const Level = object({
+  level: string().oneOf(["Rookie", "Skillful", "Expert"]),
 });
 
-export { Quiz };
+export { Level };
