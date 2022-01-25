@@ -12,6 +12,18 @@ async function addHistoryRecordInUser(userID, historyID) {
   return updatedUserRecord;
 }
 
+async function updateUserLevel(userID, level) {
+  const updatedRecord = await User.findByIdAndUpdate(
+    userID,
+    {
+      $set: { level },
+    },
+    { new: true }
+  );
+
+  return updatedRecord.level;
+}
+
 async function getUser(userID) {
   const user = await User.findById(userID);
 
@@ -46,4 +58,4 @@ async function getUserHistory(userID) {
   return history;
 }
 
-export { addHistoryRecordInUser, getUser, getUserHistory };
+export { addHistoryRecordInUser, getUser, getUserHistory, updateUserLevel };

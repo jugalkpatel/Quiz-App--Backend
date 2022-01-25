@@ -12,4 +12,5 @@ export {
   addHistoryRecordInUser,
   getUser,
   getUserHistory,
+  updateUserLevel,
 } from "./user.services.js";
