@@ -22,7 +22,7 @@ async function getHistoryHandler(req, res) {
 
 async function createHistoryHandler(req, res) {
   const levels = ["Rookie", "Skillful", "Expert"];
-  const { level, score, totalTime } = req.body;
+  const { level, score, time } = req.body;
   const userID = req.userID;
   const { _id: quizID } = await getQuiz(capitalize(level));
   let updatedLevel = level;
@@ -31,7 +31,7 @@ async function createHistoryHandler(req, res) {
     user: userID,
     level: quizID,
     score,
-    time: totalTime,
+    time,
   });
 
   await addHistoryRecordInUser(userID, historyRecord._id);
