@@ -2,45 +2,52 @@ import createError from "http-errors";
 
 import { registerService, loginService } from "../services/index.js";
 
-import { deleteCookies } from "../utils/deleteCookies.js";
+import { formatHistory } from "../utils/index.js";
 
 const registerHandler = async (req, res) => {
-  const { userId, userName, accessToken, level } = await registerService(
-    req.body
-  );
+  const { email, name, password } = req.body;
+
+  const { userId, userName, accessToken, level, history } =
+    await registerService({
+      email,
+      name,
+      password,
+    });
 
   res.status(201).json({
     success: true,
     message: "Registered Successfully",
-    user: { id: userId, name: userName, token: accessToken, level },
+    user: {
+      id: userId,
+      name: userName,
+      token: accessToken,
+      level,
+      history: formatHistory(history),
+    },
   });
 };
 
 const loginHandler = async (req, res) => {
-  const { userId, userName, accessToken, level } = await loginService(req.body);
+  const { email, password } = req.body;
+
+  const { userId, userName, accessToken, level, history } = await loginService({
+    email,
+    password,
+  });
 
   setTimeout(() => {
     res.status(201).json({
       success: true,
       message: "Authenticated Successfully",
-      user: { id: userId, name: userName, token: accessToken, level },
+      user: {
+        id: userId,
+        name: userName,
+        token: accessToken,
+        level,
+        history: formatHistory(history),
+      },
     });
   }, 5000);
 };
 
-const logoutHandler = async (req, res) => {
-  const { userId } = req.body;
-
-  if (!userId) {
-    throw createError.BadRequest("UserID required");
-  }
-
-  deleteCookies(res);
-
-  res.status(201).send({
-    success: true,
-    message: "Logout Successfull",
-  });
-};
-
-export { registerHandler, loginHandler, logoutHandler };
+export { registerHandler, loginHandler };

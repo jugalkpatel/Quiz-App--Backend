@@ -17,11 +17,21 @@ async function registerService({ email, name, password }) {
 
   const accessToken = await getAccessToken(user._id);
 
+  await User.populate(user, {
+    path: "history",
+    select: "-user",
+    populate: {
+      path: "quiz",
+      select: "quizType -_id",
+    },
+  });
+
   return {
     userId: user._id,
     userName: user.name,
     accessToken,
     level: user.level,
+    history: user.history,
   };
 }
 
@@ -36,11 +46,21 @@ async function loginService({ email, password }) {
 
   const accessToken = await getAccessToken(user._id);
 
+  await User.populate(user, {
+    path: "history",
+    select: "-user",
+    populate: {
+      path: "quiz",
+      select: "quizType -_id",
+    },
+  });
+
   return {
     userId: user._id,
     userName: user.name,
     accessToken,
     level: user.level,
+    history: user.history,
   };
 }
 
