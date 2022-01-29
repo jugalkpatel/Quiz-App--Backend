@@ -4,7 +4,7 @@ import {
   getQuizLeaderBoard,
 } from "../services/quiz.services.js";
 
-import { capitalize } from "../utils/capitalize.js";
+import { capitalize } from "../utils/index.js";
 
 async function createQuizHandler(req, res) {
   const { quizType } = req.body;

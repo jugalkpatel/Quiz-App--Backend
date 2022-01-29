@@ -1,6 +1,6 @@
 import { Quiz } from "../models/quiz.model.js";
 import createError from "http-errors";
-import { findMinimumRecord } from "../utils/findMinimumRecord.js";
+import { findMinimumRecord } from "../utils/index.js";
 
 async function createQuiz(quizType) {
   const quiz = await Quiz.create({ quizType });

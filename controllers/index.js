@@ -1,8 +1,4 @@
-export {
-  registerHandler,
-  loginHandler,
-  logoutHandler,
-} from "./auth.controllers.js";
+export { registerHandler, loginHandler } from "./auth.controllers.js";
 export {
   createQuizHandler,
   getQuizHandler,
