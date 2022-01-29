@@ -7,7 +7,8 @@ import {
   updateUserLevel,
 } from "../services/index.js";
 
-import { capitalize } from "../utils/capitalize.js";
+import LEVEL_UP_SCORE from "../utils/constants.js";
+import { formatHistory, capitalize } from "../utils/index.js";
 
 async function getHistoryHandler(req, res) {
   const userID = req.userID;
@@ -34,14 +35,19 @@ async function createHistoryHandler(req, res) {
     time,
   });
 
-  await addHistoryRecordInUser(userID, historyRecord._id);
+  const updatedHistory = await addHistoryRecordInUser(
+    userID,
+    historyRecord._id
+  );
+
+  const history = formatHistory(updatedHistory);
 
   const isInLeaderBoard = await addHistoryRecordInQuiz({
     level,
     currentRecord: historyRecord,
   });
 
-  if (isInLeaderBoard) {
+  if (score >= LEVEL_UP_SCORE) {
     const levelIndex = levels.indexOf(level);
 
     if (levelIndex < 2) {
@@ -51,7 +57,7 @@ async function createHistoryHandler(req, res) {
 
   res.status(201).json({
     success: true,
-    details: { isInLeaderBoard, updatedLevel },
+    details: { isInLeaderBoard, updatedLevel, history },
   });
 }
 

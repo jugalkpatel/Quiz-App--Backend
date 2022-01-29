@@ -9,7 +9,16 @@ async function addHistoryRecordInUser(userID, historyID) {
     { new: true }
   );
 
-  return updatedUserRecord;
+  await User.populate(updatedUserRecord, {
+    path: "history",
+    select: "-user",
+    populate: {
+      path: "quiz",
+      select: "quizType -_id",
+    },
+  });
+
+  return updatedUserRecord.history;
 }
 
 async function updateUserLevel(userID, level) {

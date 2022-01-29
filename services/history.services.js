@@ -7,7 +7,7 @@ async function createHistoryRecord({ user, level, score, time }) {
     user,
     quiz: level,
     score,
-    totalTime: time,
+    time,
   });
 
   if (!historyRecord) {
