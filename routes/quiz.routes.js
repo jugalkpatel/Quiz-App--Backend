@@ -12,12 +12,11 @@ import { validateRequest, tokenValidator } from "../middlewares/index.js";
 const quizRoutes = Router();
 
 quizRoutes
-  .get("/", asyncHandler(getQuizHandler))
+  .get("/", validateRequest(Level), asyncHandler(getQuizHandler))
   .post("/add", asyncHandler(createQuizHandler))
   .get(
     "/leaderboard",
     validateRequest(Level),
-    tokenValidator,
     asyncHandler(getQuizLeaderBoardHandler)
   );
 
