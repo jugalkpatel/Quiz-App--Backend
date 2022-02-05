@@ -1,7 +1,8 @@
 function validateRequest(schema) {
   return async function (req, res, next) {
     try {
-      await schema.validate(req.body);
+      const data = Object.entries(req.query).length ? req.query : req.body;
+      await schema.validate(data);
       return next();
     } catch (err) {
       return next(err);
