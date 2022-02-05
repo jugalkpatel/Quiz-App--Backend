@@ -1,3 +1,5 @@
+import { v1 as uuidv1 } from "uuid";
+
 import {
   createQuiz,
   getQuiz,
@@ -29,7 +31,7 @@ async function getQuizHandler(req, res) {
 }
 
 async function getQuizLeaderBoardHandler(req, res) {
-  const { level } = req.body;
+  const { level } = req.query;
   let leaderBoard = await getQuizLeaderBoard(level);
 
   if (!leaderBoard) {
@@ -41,9 +43,10 @@ async function getQuizLeaderBoardHandler(req, res) {
 
   leaderBoard = leaderBoard.map((record) => {
     return {
+      id: uuidv1(),
       user: record.user.name,
       score: record.score,
-      time: record.totalTime,
+      time: record.time,
     };
   });
 
