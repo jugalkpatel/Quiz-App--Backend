@@ -41,6 +41,28 @@ async function getQuizLeaderBoardHandler(req, res) {
     });
   }
 
+  // since leaderboard always has 10 entries, we can use inbuilt sort
+  leaderBoard.sort((firstEl, secondEl) => {
+    if (firstEl.score < secondEl.score) {
+      return 1;
+    }
+
+    if (firstEl.score > secondEl.score) {
+      return -1;
+    }
+
+    // control comes here when both scores are equal
+    if (firstEl.time < secondEl.time) {
+      return -1;
+    }
+
+    if (firstEl.time > secondEl.time) {
+      return 1;
+    }
+
+    return 0;
+  });
+
   leaderBoard = leaderBoard.map((record) => {
     return {
       id: uuidv1(),
