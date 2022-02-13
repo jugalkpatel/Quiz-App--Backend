@@ -1,5 +1,5 @@
 const createError = require("http-errors");
-const { User } = require("../models/quiz.model");
+const { User } = require("../models/user.model");
 
 async function addHistoryRecordInUser(userID, historyID) {
   const updatedUserRecord = await User.findOneAndUpdate(

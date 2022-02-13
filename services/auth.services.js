@@ -1,6 +1,6 @@
 const createError = require("http-errors");
 
-const User = require("../models/user.model");
+const { User } = require("../models/user.model");
 const {
   createPassword,
   validatePassword,

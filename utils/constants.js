@@ -1,1 +1,2 @@
-exports.LEVEL_UP_SCORE = 5;
+const LEVEL_UP_SCORE = 5;
+module.exports = { LEVEL_UP_SCORE };

@@ -8,7 +8,7 @@ const {
   updateUserLevel,
   getUserHistory,
 } = require("../services/user.services");
-const LEVEL_UP_SCORE = require("../utils/constants");
+const { LEVEL_UP_SCORE } = require("../utils/constants");
 const { formatHistory } = require("../utils/formatHistory");
 const { capitalize } = require("../utils/capitalize");
 
@@ -51,7 +51,6 @@ async function createHistoryHandler(req, res) {
 
   if (score >= LEVEL_UP_SCORE) {
     const levelIndex = levels.indexOf(level);
-
     if (levelIndex < 2) {
       updatedLevel = await updateUserLevel(userID, levels[levelIndex + 1]);
     }
