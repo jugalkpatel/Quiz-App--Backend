@@ -6,8 +6,8 @@ const {
   loginHandler,
 } = require("../controllers/auth.controllers");
 
-const { Register } = require("../validation/login.schema");
-const { Login } = require("../validation/register.schema");
+const { Login } = require("../validation/login.schema");
+const { Register } = require("../validation/register.schema");
 const { validateRequest } = require("../middlewares/validate-request");
 
 authRoutes
