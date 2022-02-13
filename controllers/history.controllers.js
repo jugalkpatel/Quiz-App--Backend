@@ -1,14 +1,16 @@
-import {
-  createHistoryRecord,
+const { createHistoryRecord } = require("../services/history.services");
+const {
   getQuiz,
-  addHistoryRecordInUser,
-  getUserHistory,
   addHistoryRecordInQuiz,
+} = require("../services/quiz.services");
+const {
+  addHistoryRecordInUser,
   updateUserLevel,
-} from "../services/index.js";
-
-import LEVEL_UP_SCORE from "../utils/constants.js";
-import { formatHistory, capitalize } from "../utils/index.js";
+  getUserHistory,
+} = require("../services/user.services");
+const LEVEL_UP_SCORE = require("../utils/constants");
+const { formatHistory } = require("../utils/formatHistory");
+const { capitalize } = require("../utils/capitalize");
 
 async function getHistoryHandler(req, res) {
   const userID = req.userID;
@@ -61,4 +63,4 @@ async function createHistoryHandler(req, res) {
   });
 }
 
-export { getHistoryHandler, createHistoryHandler };
+module.exports = { getHistoryHandler, createHistoryHandler };

@@ -1,9 +1,9 @@
-import jwt, { decode } from "jsonwebtoken";
-import createError from "http-errors";
+const { sign, verify } = require("jsonwebtoken");
+const createError = require('http-errors');
 
 function getAccessToken(userId) {
   return new Promise((resolve, reject) => {
-    jwt.sign(
+    sign(
       { user: userId },
       process.env.ACC_KEY,
       { expiresIn: "1w" },
@@ -16,7 +16,7 @@ function getAccessToken(userId) {
 }
 
 function verifyAccessToken(token) {
-  const tokenData = jwt.verify(
+  const tokenData = verify(
     token,
     process.env.ACC_KEY,
     function (err, decoded) {
@@ -34,4 +34,4 @@ function verifyAccessToken(token) {
   return tokenData;
 }
 
-export { getAccessToken, verifyAccessToken };
+module.exports = { getAccessToken, verifyAccessToken };

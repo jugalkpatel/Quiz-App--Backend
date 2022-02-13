@@ -1,15 +1,17 @@
-import { Router } from "express";
-import asyncHandler from "express-async-handler";
+const express = require("express");
+const asyncHandler = require("express-async-handler");
 
-import {
+const {
   createQuizHandler,
   getQuizHandler,
   getQuizLeaderBoardHandler,
-} from "../controllers/index.js";
-import { Level } from "../validation/index.js";
-import { validateRequest, tokenValidator } from "../middlewares/index.js";
+} = require("../controllers/quiz.controllers");
 
-const quizRoutes = Router();
+const { Level } = require("../validation/quiz.schema");
+const { validateRequest } = require("../middlewares/validate-request");
+const { tokenValidator } = require("../middlewares/token-validator");
+
+const quizRoutes = express.Router();
 
 quizRoutes
   .get("/", validateRequest(Level), asyncHandler(getQuizHandler))
@@ -20,4 +22,4 @@ quizRoutes
     asyncHandler(getQuizLeaderBoardHandler)
   );
 
-export { quizRoutes };
+module.exports = { quizRoutes };

@@ -1,18 +1,16 @@
-import { Router } from "express";
-import asyncHandler from "express-async-handler";
+const express = require("express");
+const asyncHandler = require("express-async-handler");
 
-import { History } from "../validation/index.js";
-import {
-  validateRequest,
-  tokenValidator,
-  userValidator,
-} from "../middlewares/index.js";
-import {
+const { History } = require("../validation/history.schema");
+const { userValidator } = require("../middlewares/user-validator");
+const { tokenValidator } = require("../middlewares/token-validator");
+const { validateRequest } = require("../middlewares/validate-request");
+const {
   createHistoryHandler,
   getHistoryHandler,
-} from "../controllers/history.controllers.js";
+} = require("../controllers/history.controllers");
 
-const historyRoutes = Router();
+const historyRoutes = express.Router();
 
 historyRoutes.get(
   "/",
@@ -29,4 +27,4 @@ historyRoutes.post(
   asyncHandler(createHistoryHandler)
 );
 
-export { historyRoutes };
+module.exports = { historyRoutes };

@@ -1,6 +1,5 @@
-import createError from "http-errors";
-
-import { User } from "../models/index.js";
+const createError = require('http-errors');
+const { User } = require('../models/user.model')
 
 async function userValidator(req, res, next) {
   try {
@@ -20,4 +19,4 @@ async function userValidator(req, res, next) {
   }
 }
 
-export { userValidator };
+module.exports = { userValidator };

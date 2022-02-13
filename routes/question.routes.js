@@ -1,15 +1,14 @@
-import { Router } from "express";
-import asyncHandler from "express-async-handler";
+const express = require("express");
+const asyncHandler = require("express-async-handler");
 
-import {
+const {
   createQuestionHandler,
   getAllQuestionsHanlder,
-} from "../controllers/index.js";
+} = require("../controllers/question.controllers");
+const { validateRequest } = require("../middlewares/validate-request");
+const { CreateQuestion } = require("../validation/createQuestion.schema");
 
-import { validateRequest } from "../middlewares/index.js";
-import { CreateQuestion } from "../validation/index.js";
-
-const questionRoutes = Router();
+const questionRoutes = express.Router();
 
 questionRoutes
   .get("/", asyncHandler(getAllQuestionsHanlder))
@@ -19,4 +18,4 @@ questionRoutes
     asyncHandler(createQuestionHandler)
   );
 
-export { questionRoutes };
+module.exports = { questionRoutes };

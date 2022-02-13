@@ -1,4 +1,4 @@
-import { string, object } from "yup";
+const { string, object } = require("yup");
 
 const Level = object({
   level: string()
@@ -6,4 +6,4 @@ const Level = object({
     .required("level is required"),
 });
 
-export { Level };
+module.exports = { Level };

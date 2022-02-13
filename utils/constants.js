@@ -1,1 +1,1 @@
-export default 5;
+exports.LEVEL_UP_SCORE = 5;

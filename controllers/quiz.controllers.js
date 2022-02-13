@@ -1,12 +1,12 @@
-import { v1 as uuidv1 } from "uuid";
+const { v1: uuidv1 } = require("uuid");
 
-import {
+const {
   createQuiz,
   getQuiz,
   getQuizLeaderBoard,
-} from "../services/quiz.services.js";
+} = require("../services/quiz.services");
 
-import { capitalize } from "../utils/index.js";
+const { capitalize } = require("../utils/capitalize");
 
 async function createQuizHandler(req, res) {
   const { quizType } = req.body;
@@ -79,4 +79,8 @@ async function getQuizLeaderBoardHandler(req, res) {
   });
 }
 
-export { createQuizHandler, getQuizHandler, getQuizLeaderBoardHandler };
+module.exports = {
+  createQuizHandler,
+  getQuizHandler,
+  getQuizLeaderBoardHandler,
+};

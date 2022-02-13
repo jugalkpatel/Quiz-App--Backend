@@ -1,4 +1,7 @@
-import { createQuestion, getAllQuestions } from "../services/index.js";
+const {
+  createQuestion,
+  getAllQuestions,
+} = require("../services/question.services");
 
 async function createQuestionHandler(req, res) {
   const { questions } = req.body;
@@ -25,4 +28,4 @@ async function getAllQuestionsHanlder(req, res) {
   });
 }
 
-export { createQuestionHandler, getAllQuestionsHanlder };
+module.exports = { createQuestionHandler, getAllQuestionsHanlder };

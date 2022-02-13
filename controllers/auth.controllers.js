@@ -1,8 +1,6 @@
-import createError from "http-errors";
+const { registerService, loginService } = require("../services/auth.services");
+const { formatHistory } = require("../utils/formatHistory");
 
-import { registerService, loginService } from "../services/index.js";
-
-import { formatHistory } from "../utils/index.js";
 
 const registerHandler = async (req, res) => {
   const { email, name, password } = req.body;
@@ -50,4 +48,4 @@ const loginHandler = async (req, res) => {
   }, 5000);
 };
 
-export { registerHandler, loginHandler };
+module.exports = { registerHandler, loginHandler };

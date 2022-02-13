@@ -1,6 +1,5 @@
-import createError from "http-errors";
-
-import { User } from "../models/index.js";
+const createError = require("http-errors");
+const { User } = require("../models/quiz.model");
 
 async function addHistoryRecordInUser(userID, historyID) {
   const updatedUserRecord = await User.findOneAndUpdate(
@@ -67,4 +66,9 @@ async function getUserHistory(userID) {
   return history;
 }
 
-export { addHistoryRecordInUser, getUser, getUserHistory, updateUserLevel };
+module.exports = {
+  addHistoryRecordInUser,
+  getUser,
+  getUserHistory,
+  updateUserLevel,
+};

@@ -1,5 +1,5 @@
-import { Password } from "../models/index.js";
-import createError from "http-errors";
+const createError = require("http-errors");
+const { Password } = require("../models/password.model");
 
 async function createPassword({ secret, user }) {
   await Password.create({ secret, user });
@@ -15,4 +15,4 @@ async function validatePassword({ user, password }) {
   }
 }
 
-export { createPassword, validatePassword };
+module.exports = { createPassword, validatePassword };

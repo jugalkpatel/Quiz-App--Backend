@@ -1,5 +1,6 @@
-import { Question, Quiz } from "../models/index.js";
-import createError from "http-errors";
+const createError = require("http-errors");
+const { Question } = require("../models/question.model");
+const { Quiz } = require("../models/quiz.model");
 
 async function createQuestion({ question, options, answers, quizType }) {
   const quiz = await Quiz.findOne({ quizType });
@@ -51,4 +52,4 @@ async function getAllQuestions() {
   return questions;
 }
 
-export { createQuestion, getAllQuestions };
+module.exports = { createQuestion, getAllQuestions };

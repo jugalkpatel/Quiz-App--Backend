@@ -1,4 +1,4 @@
-import { string, array, object } from "yup";
+const { string, array, object } = require("yup");
 
 const Question = object({
   question: string("Question is Required").required().trim(),
@@ -17,4 +17,4 @@ const CreateQuestion = object({
   questions: array().of(Question).min(1, "Atleast One Question is required"),
 });
 
-export { CreateQuestion };
+module.exports = { Question, CreateQuestion };

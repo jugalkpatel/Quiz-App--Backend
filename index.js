@@ -1,24 +1,20 @@
-import express from "express";
-import morgan from "morgan";
-import createError from "http-errors";
-import { config } from "dotenv";
-import asyncHandler from "express-async-handler";
-import cors from "cors";
+const express = require("express");
+const morgan = require("morgan");
+const createError = require("http-errors");
+const asyncHandler = require("express-async-handler");
+const cors = require("cors");
 
-import connect from "./db/connect.js";
-import {
-  authRoutes,
-  quizRoutes,
-  questionRoutes,
-  historyRoutes,
-} from "./routes/index.js";
-import {
-  errorHandler,
-  tokenValidator,
-  userValidator,
-} from "./middlewares/index.js";
+const { connect } = require("./db/connect");
+const { authRoutes } = require("./routes/auth.routes");
+const { quizRoutes } = require("./routes/quiz.routes");
+const { questionRoutes } = require("./routes/question.routes");
+const { historyRoutes } = require("./routes/history.routes");
 
-config();
+const { errorHandler } = require("./middlewares/error-handler");
+const { tokenValidator } = require("./middlewares/token-validator");
+const { userValidator } = require("./middlewares/user-validator");
+
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;

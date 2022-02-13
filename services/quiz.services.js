@@ -1,6 +1,6 @@
-import { Quiz } from "../models/quiz.model.js";
-import createError from "http-errors";
-import { findMinimumRecord } from "../utils/index.js";
+const createError = require("http-errors");
+const { Quiz } = require("../models/quiz.model");
+const { findMinimumRecord } = require("../utils/findMinimumRecord");
 
 async function createQuiz(quizType) {
   const quiz = await Quiz.create({ quizType });
@@ -94,4 +94,9 @@ async function getQuizLeaderBoard(level) {
   return quiz.leaderBoard;
 }
 
-export { createQuiz, getQuiz, addHistoryRecordInQuiz, getQuizLeaderBoard };
+module.exports = {
+  createQuiz,
+  getQuiz,
+  addHistoryRecordInQuiz,
+  getQuizLeaderBoard,
+};

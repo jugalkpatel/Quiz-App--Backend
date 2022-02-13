@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import { hash, compare } from "bcrypt";
+const mongoose = require("mongoose");
+const { hash, compare } = require("bcrypt");
 
 const { model, Schema } = mongoose;
 
@@ -38,4 +38,4 @@ PasswordSchema.methods.comparePasswords = async function (password) {
 
 const Password = model("Password", PasswordSchema);
 
-export { Password };
+module.exports = { Password };

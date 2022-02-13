@@ -3,4 +3,4 @@ const capitalize = (word) => {
   return wordArr[0].toUpperCase() + wordArr.slice(1).join("");
 };
 
-export { capitalize };
+module.exports = { capitalize };

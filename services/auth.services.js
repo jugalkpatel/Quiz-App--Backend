@@ -1,8 +1,11 @@
-import createError from "http-errors";
+const createError = require("http-errors");
 
-import { User } from "../models/index.js";
-import { createPassword, validatePassword } from "../services/index.js";
-import { getAccessToken } from "../helpers/jwt.helpers.js";
+const User = require("../models/user.model");
+const {
+  createPassword,
+  validatePassword,
+} = require("../services/password.services");
+const { getAccessToken } = require("../helpers/jwt.helpers");
 
 async function registerService({ email, name, password }) {
   const isUserAlreadyExists = await User.findOne({ email });
@@ -64,4 +67,4 @@ async function loginService({ email, password }) {
   };
 }
 
-export { registerService, loginService };
+module.exports = { registerService, loginService };

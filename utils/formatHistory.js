@@ -9,4 +9,4 @@ function formatHistory(history) {
     : [];
 }
 
-export { formatHistory };
+module.exports = { formatHistory };

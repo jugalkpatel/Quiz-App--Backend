@@ -1,6 +1,5 @@
-import createError from "http-errors";
-
-import { History } from ".././models/index.js";
+const createError = require("http-errors");
+const { History } = require('../models/history.model')
 
 async function createHistoryRecord({ user, level, score, time }) {
   const historyRecord = await History.create({
@@ -17,4 +16,4 @@ async function createHistoryRecord({ user, level, score, time }) {
   return historyRecord;
 }
 
-export { createHistoryRecord };
+module.exports = { createHistoryRecord };

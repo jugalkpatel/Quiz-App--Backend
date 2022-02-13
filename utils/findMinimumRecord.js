@@ -27,4 +27,4 @@ function findMinimumRecord(leaderBoard, initialValues) {
   return minimumRecord;
 }
 
-export { findMinimumRecord };
+module.exports = { findMinimumRecord };

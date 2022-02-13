@@ -10,4 +10,4 @@ function validateRequest(schema) {
   };
 }
 
-export { validateRequest };
+module.exports = { validateRequest };

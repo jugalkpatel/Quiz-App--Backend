@@ -1,4 +1,4 @@
-import { object, string, ref } from "yup";
+const { object, string, ref } = require("yup");
 
 const Register = object({
   email: string().email().required().lowercase(),
@@ -16,4 +16,4 @@ const Register = object({
     .oneOf([ref("password")]),
 });
 
-export { Register };
+module.exports = { Register };

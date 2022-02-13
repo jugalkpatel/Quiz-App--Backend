@@ -1,4 +1,4 @@
-import { string, array, object, number } from "yup";
+const { string, object, number } = require("yup");
 
 const History = object({
   level: string().oneOf(["Rookie", "Skillful", "Expert"]).required(),
@@ -6,4 +6,4 @@ const History = object({
   time: number().required(),
 });
 
-export { History };
+module.exports = { History };

@@ -1,4 +1,4 @@
-import { object, string } from "yup";
+const { object, string } = require("yup");
 
 const Login = object({
   email: string().email().required().lowercase(),
@@ -12,4 +12,4 @@ const Login = object({
     ),
 });
 
-export { Login };
+module.exports = { Login };

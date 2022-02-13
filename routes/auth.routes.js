@@ -1,13 +1,17 @@
-import { Router } from "express";
-import asyncHandler from "express-async-handler";
-const authRoutes = Router();
-import { registerHandler, loginHandler } from "../controllers/index.js";
+const express = require("express");
+const asyncHandler = require("express-async-handler");
+const authRoutes = express.Router();
+const {
+  registerHandler,
+  loginHandler,
+} = require("../controllers/auth.controllers");
 
-import { Register, Login } from "../validation/index.js";
-import { validateRequest, tokenValidator } from "../middlewares/index.js";
+const { Register } = require("../validation/login.schema");
+const { Login } = require("../validation/register.schema");
+const { validateRequest } = require("../middlewares/validate-request");
 
 authRoutes
   .post("/register", validateRequest(Register), asyncHandler(registerHandler))
   .post("/login", validateRequest(Login), asyncHandler(loginHandler));
 
-export { authRoutes };
+module.exports = { authRoutes };

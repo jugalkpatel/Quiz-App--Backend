@@ -1,6 +1,5 @@
-import createError from "http-errors";
-
-import { verifyAccessToken } from "../helpers/jwt.helpers.js";
+const createError = require("http-errors");
+const { verifyAccessToken } = require("../helpers/jwt.helpers");
 
 async function tokenValidator(req, res, next) {
   try {
@@ -26,4 +25,4 @@ async function tokenValidator(req, res, next) {
   }
 }
 
-export { tokenValidator };
+module.exports = { tokenValidator };
